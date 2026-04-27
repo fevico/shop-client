@@ -7,7 +7,7 @@ import {
   Menu,
   X,
   Home,
-  ShoppingBag,
+  ShoppingBag, 
   ClipboardList,
 } from "lucide-react";
 import {
@@ -52,10 +52,10 @@ const user = {
           <span className="text-[17px] font-bold tracking-tight text-gray-900">
             ShopHub
           </span>
-        </Link>
+        </Link> 
 
         {/* ── Desktop nav ── */}
-        <nav className="hidden flex-1 items-center gap-1 md:flex">
+        <nav className="hidden flex-1 justify-center items-center gap-1 md:flex">
           {NAV_LINKS.map(({ label, to }) => (
             <NavLink
               key={to}
@@ -74,7 +74,7 @@ const user = {
         </nav>
 
         {/* ── Right actions ── */}
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2"> 
 
           {/* Cart */}
           <Button
