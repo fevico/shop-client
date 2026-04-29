@@ -118,6 +118,9 @@ const user = {
                 <DropdownMenuItem onClick={() => navigate("/orders")}>
                   My Orders
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/login")}>
+                  Login
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/profile")}>
                   Profile
                 </DropdownMenuItem>

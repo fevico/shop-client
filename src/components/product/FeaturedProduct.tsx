@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -33,14 +34,16 @@ const products = [
 ];
 
 const FeaturedProduct = () => {
+  const navigate = useNavigate();
+  
   return (
-    <div className="px-10 mt-20">
+    <div className="px-10 mt-10">
         <div className="flex items-center justify-between mb-6">
           <div className="flex flex-col gap-2">
           <h2 className="text-xl font-semibold">Featured product</h2>
-          <p className="textgray-500">Check out our handpicked selection</p>
+          <p className="text-gray-500">Check out our handpicked selection</p>
           </div>
-          <button className="flex items-center gap-2 text-sm font-medium hover:underline">
+          <button onClick={() => navigate('/shop')} className="flex items-center gap-2 text-sm font-medium hover:underline">
           View All <ArrowRight size={16} />
         </button>
         </div>

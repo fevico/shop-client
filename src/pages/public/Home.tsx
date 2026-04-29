@@ -1,6 +1,8 @@
+import ExploreProducts from "@/components/ExploreProducts";
 import Features from "@/components/Features";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProduct from "@/components/product/FeaturedProduct";
+import TopRated from "@/components/product/TopRated";
 
 const Home = () => {
 
@@ -9,6 +11,9 @@ const Home = () => {
       <HeroSection/>
       <Features/>
       <FeaturedProduct/>
+      {/* top rated product */}
+        <TopRated />
+        <ExploreProducts/>
     </div>
   )
 }

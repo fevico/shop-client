@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import Home from "@/pages/public/Home";
+import Login from "@/pages/public/Login";
 import Shop from "@/pages/public/Shop";
 import { Routes, Route } from "react-router-dom";
 // import ProtectedRoute from "@/components/auth/ProtectedRoute";
@@ -27,13 +28,13 @@ export default function AppRoutes() {
   return ( 
     <Routes>
       {/* All routes share the same Header via Layout */}
+        <Route path="login" element={<Login />} />
       <Route element={<Layout />}> 
 
         {/* Public — anyone can visit */}
         <Route index        element={<Home />} />
         <Route path="shop"  element={<Shop />} />
         {/* <Route path="cart"  element={<Cart />} /> */}
-        {/* <Route path="login" element={<Login />} /> */}
         {/* <Route path="register" element={<Register />} /> */}
 
         {/* User — must be logged in */}
