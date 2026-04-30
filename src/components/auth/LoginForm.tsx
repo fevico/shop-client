@@ -8,6 +8,8 @@ import { Eye, EyeOff } from "lucide-react"
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginMutation } from "@/services/api"
+import { useDispatch } from "react-redux"
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -18,16 +20,18 @@ type formFields = z.infer<typeof loginSchema>
 
 const LoginForm = () => {
       const [showPassword, setShowPassword] = useState(false)
+      const [login, { isLoading }] = useLoginMutation();
+      const dispatch =  useDispatch()
 
       const {register, handleSubmit, formState: {errors}} = useForm<formFields>({
         resolver: zodResolver(loginSchema)
       })
 
     const onSubmit: SubmitHandler<formFields> = (data) => {
-      console.log(data)
+      login(data)
     }
 
-
+ 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <Card className="w-full flex max-w-md p-6">
