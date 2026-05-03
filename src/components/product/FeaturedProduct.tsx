@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import { useNavigate } from "react-router-dom";
 
-const products = [
+export const products = [
   {
     title: "Wireless Headphones",
     price: 299.99,

@@ -1,3 +1,4 @@
+import VerifiyToken from "@/components/auth/VerifiyToken";
 import Layout from "@/components/layout/Layout";
 import Home from "@/pages/public/Home";
 import Login from "@/pages/public/Login";
@@ -31,6 +32,7 @@ export default function AppRoutes() {
       {/* All routes share the same Header via Layout */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="verify-token" element={<VerifiyToken />} />
       <Route element={<Layout />}> 
 
         {/* Public — anyone can visit */}

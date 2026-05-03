@@ -18,14 +18,32 @@ export const apiSlice = createApi({
     endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: '/login',
+        url: '/auth/login',
         method: 'POST',
         body: credentials,
       }),
       // After login, invalidate auth cache to refresh
       invalidatesTags: ['Auth'],
     }),
+    signup: builder.mutation({
+      query: (credentials) => ({
+        url: '/auth/register',
+        method: 'POST',
+        body: credentials,
+      }),
+      // After registration, invalidate auth cache to refresh
+      invalidatesTags: ['Auth'],
+    }),
+    verifyEmail: builder.mutation({
+      query: (credentials) => ({
+        url: '/auth/verify-email',
+        method: 'POST',
+        body: credentials,
+      }),
+      // After registration, invalidate auth cache to refresh
+      invalidatesTags: ['Auth'],
+    }),
     })
 })
 
-export const {useLoginMutation} = apiSlice
+export const {useLoginMutation, useSignupMutation, useVerifyEmailMutation} = apiSlice

@@ -5,9 +5,10 @@ import { Button } from '../ui/button'
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import z from 'zod'
+import { useSignupMutation } from '@/services/api'
 
 const registerSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -18,14 +19,24 @@ const registerSchema = z.object({
 type formFields = z.infer<typeof registerSchema>
 const RegisterForm = () => {
      const [showPassword, setShowPassword] = useState(false)
+     const navigate = useNavigate()
+
+     const [signup, {isLoading}] = useSignupMutation()
     
           const {register, handleSubmit, reset, formState: {errors}} = useForm<formFields>({
             resolver: zodResolver(registerSchema)
           })
     
-        const onSubmit: SubmitHandler<formFields> = (data) => {
-          console.log(data)
-}
+        const onSubmit: SubmitHandler<formFields> = async (data) => {
+          try {
+            const result = await signup(data).unwrap();
+            console.log("signup result", result)
+            reset()
+            navigate(`/verify-token?email=${data.email}`)
+          } catch (error) {
+            console.log("signup error", error)
+          }
+        }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -59,7 +70,9 @@ const RegisterForm = () => {
             </div>
 
             <div className="w-full sm:max-w-sm">
-                <Button className="w-full py-4 hover:bg-gray-900">Register</Button>
+                <Button className="w-full py-4 hover:bg-gray-900" disabled={isLoading}>
+                    {isLoading ? "Creating account..." : "Create account"}
+                </Button>
             </div>
 
           <div className="text-center text-gray-500 text-sm">

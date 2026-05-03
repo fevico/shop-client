@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/services/api"
 import { useDispatch } from "react-redux"
+import { loginSuccess } from "@/store/slice/authSlice"
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,14 +22,26 @@ type formFields = z.infer<typeof loginSchema>
 const LoginForm = () => {
       const [showPassword, setShowPassword] = useState(false)
       const [login, { isLoading }] = useLoginMutation();
-      const dispatch =  useDispatch()
+      const dispatch =  useDispatch()  
 
-      const {register, handleSubmit, formState: {errors}} = useForm<formFields>({
+      const {register, handleSubmit, reset, formState: {errors}} = useForm<formFields>({
         resolver: zodResolver(loginSchema)
       })
 
-    const onSubmit: SubmitHandler<formFields> = (data) => {
-      login(data)
+    const onSubmit: SubmitHandler<formFields> = async (data) => {
+      try {
+        const result = await login(data).unwrap();
+        console.log("result", result)
+        reset();
+        dispatch(loginSuccess({
+            token: result.token,
+            isAuthenticated: true,
+            role: result.user?.role,
+            name: result.user?.name,
+        }))
+      } catch (error) {
+        console.log("error", error)
+      }
     }
 
  
@@ -57,7 +70,9 @@ const LoginForm = () => {
             </div>
 
             <div className="w-full sm:max-w-sm">
-                <Button className="w-full py-4 hover:bg-gray-900">Login</Button>
+                <Button className="w-full py-4 hover:bg-gray-900">
+                  {isLoading ? "Please wait.." : "Login"}
+                </Button>
             </div>
 
           <div className="text-center text-gray-500 text-sm">
