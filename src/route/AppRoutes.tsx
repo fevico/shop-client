@@ -1,5 +1,9 @@
 import VerifiyToken from "@/components/auth/VerifiyToken";
+import AdminLayout from "@/components/layout/AdminLayout";
 import Layout from "@/components/layout/Layout";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import Order from "@/pages/admin/Order";
+import Products from "@/pages/admin/Products";
 import Home from "@/pages/public/Home";
 import Login from "@/pages/public/Login";
 import Register from "@/pages/public/Register";
@@ -57,6 +61,12 @@ export default function AppRoutes() {
 
         {/* 404 */}
         {/* <Route path="*" element={<NotFound />} /> */}
+      </Route>
+      {/* admin route */}
+      <Route element={<AdminLayout />} >
+        <Route path="admin" element={<AdminDashboard />} />
+        <Route path="admin/products" element={<Products />} />
+        <Route path="admin/orders" element={<Order />} />
       </Route>
     </Routes>
   );

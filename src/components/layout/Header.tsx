@@ -17,9 +17,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
+import { Button } from "../ui/button";   
+import { useAuth } from "@/hook/useAuth";
 // import { useCart } from "@/hooks/useCart";
-// import { useAuth } from "@/hooks/useAuth";
 
 // ─── Nav links config — edit here to add/remove links ───────────
 const NAV_LINKS = [
@@ -33,7 +34,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 //   const { cartCount } = useCart();
-//   const { user, logout } = useAuth(); // user is null when logged out
+  const { isAuthenticated, name, email, role, logout } = useAuth();
 
 const user = {
     name: "James",
@@ -93,23 +94,20 @@ const user = {
           </Button>
 
           {/* ── User icon ── */}
-          {user ? (
+          {isAuthenticated ? (
             // Logged in: dropdown with profile/logout
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-10 w-10 rounded-lg border-gray-200"
-                  aria-label="User menu"
-                >
-                  <User size={18} />
-                </Button>
+<Avatar className="h-10 w-10">
+  <AvatarFallback className="bg-gray-900 text-white font-semibold">
+    {name?.charAt(0)?.toUpperCase() || "U"}
+  </AvatarFallback>
+</Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <div className="px-3 py-2">
-                  <p className="text-sm font-medium text-gray-900">{user.name}</p>
-                  <p className="text-xs text-gray-500">{user.email}</p>
+                  <p className="text-sm font-medium text-gray-900">{name}</p>
+                  <p className="text-xs text-gray-500">{email}</p>
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate("/dashboard")}>
@@ -118,23 +116,20 @@ const user = {
                 <DropdownMenuItem onClick={() => navigate("/orders")}>
                   My Orders
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/login")}>
-                  Login
-                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/profile")}>
                   Profile
                 </DropdownMenuItem>
-                {user.role === "admin" && (
+                {role === "admin" && (
                   <>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => navigate("/admin")}>
                       Admin Panel
                     </DropdownMenuItem>
-                  </>
+                  </> 
                 )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                //   onClick={logout}
+                  onClick={logout}
                   className="text-red-600 focus:text-red-600"
                 >
                   Log out
@@ -175,7 +170,7 @@ const user = {
             <NavLink
               key={to}
               to={to}
-              className={({ isActive }) =>
+              className={({ isActive }) => 
                 `flex items-center gap-3 border-b border-gray-100 py-3 text-sm font-medium last:border-none ${
                   isActive ? "text-gray-900" : "text-gray-500"
                 }`

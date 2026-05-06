@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "../ui/button"
 import { Card } from "../ui/card"
 import { Input } from "../ui/input"
@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/services/api"
 import { useDispatch } from "react-redux"
 import { loginSuccess } from "@/store/slice/authSlice"
+import { Spinner } from "../ui/spinner"
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -23,7 +24,7 @@ const LoginForm = () => {
       const [showPassword, setShowPassword] = useState(false)
       const [login, { isLoading }] = useLoginMutation();
       const dispatch =  useDispatch()  
-
+      const navigate = useNavigate()
       const {register, handleSubmit, reset, formState: {errors}} = useForm<formFields>({
         resolver: zodResolver(loginSchema)
       })
@@ -39,6 +40,7 @@ const LoginForm = () => {
             role: result.user?.role,
             name: result.user?.name,
         }))
+        navigate("/shop")
       } catch (error) {
         console.log("error", error)
       }
@@ -70,8 +72,8 @@ const LoginForm = () => {
             </div>
 
             <div className="w-full sm:max-w-sm">
-                <Button className="w-full py-4 hover:bg-gray-900">
-                  {isLoading ? "Please wait.." : "Login"}
+                <Button disabled={isLoading} className="w-full py-4 hover:bg-gray-900">
+                  {isLoading ? <Spinner /> : "Login"}
                 </Button>
             </div>
 
