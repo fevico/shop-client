@@ -1,15 +1,17 @@
 import { Button } from '../ui/button'
 import { Plus } from 'lucide-react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
+import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
+    const navigate = useNavigate();
+
   return (
     <div>
         <div className='flex justify-between items-center mb-4'>
             <h2 className='text-xl font-bold'>Products</h2>
-            <Button className='bg-purple-600 p-2' size="lg"><Plus /> Add Product</Button>
+            <Button onClick={() => navigate('/admin/add-product')} className='bg-purple-600 p-2' size="lg"><Plus /> Add Product</Button>
         </div>
-
         <div>
             <Table>
   <TableCaption>A list of your recent invoices.</TableCaption>

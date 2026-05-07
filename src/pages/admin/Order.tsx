@@ -1,5 +1,4 @@
 import OrderList from '@/components/dashboard/OrderList'
-import React from 'react'
 
 const Order = () => {
   return (

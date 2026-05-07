@@ -1,4 +1,5 @@
 import VerifiyToken from "@/components/auth/VerifiyToken";
+import AddProduct from "@/components/dashboard/product/AddProduct";
 import AdminLayout from "@/components/layout/AdminLayout";
 import Layout from "@/components/layout/Layout";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
@@ -66,6 +67,7 @@ export default function AppRoutes() {
       <Route element={<AdminLayout />} >
         <Route path="admin" element={<AdminDashboard />} />
         <Route path="admin/products" element={<Products />} />
+        <Route path="admin/add-product" element={<AddProduct />} />
         <Route path="admin/orders" element={<Order />} />
       </Route>
     </Routes>

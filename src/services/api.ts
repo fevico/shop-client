@@ -14,7 +14,7 @@ export const apiSlice = createApi({
             return headers
         }
     }),
-    tagTypes: ['User', 'Auth'],
+    tagTypes: ['User', 'Auth', 'Categories', 'Products'],
     endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -43,7 +43,21 @@ export const apiSlice = createApi({
       // After registration, invalidate auth cache to refresh
       invalidatesTags: ['Auth'],
     }),
+    createCategory: builder.mutation({
+      query: (credentials) => ({
+        url: '/categories',
+        method: 'POST',
+        body: credentials,
+      }),
+      // After registration, invalidate auth cache to refresh
+      invalidatesTags: ['Categories'],
+    }),
     })
 })
 
-export const {useLoginMutation, useSignupMutation, useVerifyEmailMutation} = apiSlice
+export const {
+useLoginMutation, 
+useSignupMutation, 
+useVerifyEmailMutation, 
+useCreateCategoryMutation
+} = apiSlice
