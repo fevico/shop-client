@@ -11,10 +11,10 @@ import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateCategoryMutation } from "@/services/api";
 import {Textarea} from "@/components/ui/textarea"
 import { Spinner } from "../ui/spinner";
 import { useState } from "react";
+import { useCreateCategoryMutation } from "@/services/api";
 
 const categrySchema = z.object({
     name: z.string().min(3, "Category name must be at least 3 characters long"),
@@ -35,15 +35,13 @@ const AddCategoryDialog = () => {
       console.log("before form data", data.image)
       formData.append("name", data.name);
       formData.append("description", data.description);
-
+      
       // file input returns array
-      formData.append("image", data.image[0]);
-
       const result = await createCategory(formData).unwrap();
 
       console.log("category created", result);
 
-      reset();
+      reset();     
       setOpen(false);
     } catch (error) {
       console.log(error);

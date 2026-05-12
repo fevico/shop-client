@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import { useNavigate } from "react-router-dom";
+import { useGetProductsQuery } from "@/services/api";
 
 export const products = [
   {
@@ -35,7 +36,7 @@ export const products = [
 
 const FeaturedProduct = () => {
   const navigate = useNavigate();
-  
+  const {data, isLoading, error} = useGetProductsQuery()
   return (
     <div className="px-10 mt-10">
         <div className="flex items-center justify-between mb-6">
@@ -50,7 +51,7 @@ const FeaturedProduct = () => {
 
         {/* product card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {products.map((item, index) => (
+          {data?.products.map((item: any, index: number) => (
             <ProductCard key={index} product={item}/>
           ))}
         </div>

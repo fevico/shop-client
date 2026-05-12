@@ -52,12 +52,40 @@ export const apiSlice = createApi({
       // After registration, invalidate auth cache to refresh
       invalidatesTags: ['Categories'],
     }),
-    })
+
+    createProduct: builder.mutation({
+      query: (credentials) => ({
+        url: '/products',
+        method: 'POST',
+        body: credentials,
+      }),
+      // After registration, invalidate auth cache to refresh
+      invalidatesTags: ['Products'],
+    }),
+
+    getCategories: builder.query({
+      query: () => '/categories',
+      providesTags: ['Categories'],
+    }),
+
+    getProducts: builder.query<any, void>({
+      query: () => '/products',
+      providesTags: ['Products'],
+    }),
+    getProductDetails: builder.query({
+  query: (id) => `/products/${id}`,
+  providesTags: ["Products"],
+  }),
+  })
 })
 
 export const {
 useLoginMutation, 
 useSignupMutation, 
 useVerifyEmailMutation, 
-useCreateCategoryMutation
+useCreateCategoryMutation,
+useCreateProductMutation,
+useGetCategoriesQuery,
+useGetProductsQuery,
+useGetProductDetailsQuery
 } = apiSlice

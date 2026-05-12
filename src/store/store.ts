@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authReducer from "../store/slice/authSlice";
+import cartReducer from "../store/slice/cartSlice";
 import { apiSlice } from "@/services/api";
 import storage from 'redux-persist/es/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -26,10 +27,11 @@ const authPersistConfig = {
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 
-export const store = configureStore({
+export const store = configureStore({ 
     reducer: {
       auth: persistedAuthReducer,  // ← Only auth is persisted
       [apiSlice.reducerPath]: apiSlice.reducer,  // ← API is NOT persisted
+      cart: cartReducer, // ← Cart is NOT persisted
 },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

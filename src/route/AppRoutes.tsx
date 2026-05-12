@@ -2,6 +2,7 @@ import VerifiyToken from "@/components/auth/VerifiyToken";
 import AddProduct from "@/components/dashboard/product/AddProduct";
 import AdminLayout from "@/components/layout/AdminLayout";
 import Layout from "@/components/layout/Layout";
+import ProductDetails from "@/components/product/ProductDetails";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import Order from "@/pages/admin/Order";
 import Products from "@/pages/admin/Products";
@@ -43,6 +44,7 @@ export default function AppRoutes() {
         {/* Public — anyone can visit */}
         <Route index        element={<Home />} />
         <Route path="shop"  element={<Shop />} />
+        <Route path="products/:id"  element={<ProductDetails />} />
         {/* <Route path="cart"  element={<Cart />} /> */}
 
         {/* User — must be logged in */}
