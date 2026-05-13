@@ -37,7 +37,8 @@ const items = [
 ]
 const OverviewCard = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       {items.map((item, index) => (
         <Card key={index} className="w-full p-4 rounded-xl">
           <div className="flex justify-between items-start">
@@ -66,6 +67,19 @@ const OverviewCard = () => {
         </Card>
       ))}
     </div>
+    {/* overview graph */}
+    <div className="flex gap-4 w-full">
+      {/* leftt side */}
+      <div className="flex-1">
+
+      </div>
+      {/* right side */}
+      <div className="flex-1">
+
+      </div>
+    </div>
+    </div>
+
   );
 };
 

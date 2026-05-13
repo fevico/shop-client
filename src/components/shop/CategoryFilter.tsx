@@ -21,7 +21,7 @@ const CategoryFilter = () => {
                 ) : error ? (
                     <p>Failed to load categories</p>
                 ) : (
-                    data?.categories.map((category: Category, index) => (
+                    data?.categories.map((category: Category, index: number) => (
                         <div key={index} className='flex items-center '>
                             <Button variant="ghost" size="sm" className='text-left text-sm py-4 font-semibold hover:bg-gray-200 rounded-md w-full justify-start'>
                                 {category.name}

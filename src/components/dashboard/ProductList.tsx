@@ -1,12 +1,15 @@
 import { Button } from '../ui/button'
-import { Plus } from 'lucide-react'
+import { Pencil, Plus, Trash } from 'lucide-react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { useNavigate } from 'react-router-dom';
+import { useGetProductsQuery } from '@/services/api';
+import { Spinner } from '../ui/spinner';
 
 const ProductList = () => {
     const navigate = useNavigate();
+    const {data, isLoading} = useGetProductsQuery()
 
-  return (
+    return (
     <div>
         <div className='flex justify-between items-center mb-4'>
             <h2 className='text-xl font-bold'>Products</h2>
@@ -17,19 +20,46 @@ const ProductList = () => {
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
     <TableRow>
-      <TableHead className="w-[100px]">Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
-      <TableHead className="text-right">Amount</TableHead>
+      <TableHead className="">Image</TableHead>
+      <TableHead>Product Name</TableHead>
+      <TableHead>Category</TableHead>
+      <TableHead className="">Stock</TableHead>
+      <TableHead className="">Actions</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+    {isLoading ? (
+      <div className="flex h-screen justify-center">
+        <Spinner className="size-8"/>
+      </div>
+    ) : (
+      data.products.map((product: any, index: number) => (
+      <TableRow key={index}>
+      <TableCell className="font-medium">
+        <img src={product.images[0].url} alt={product.name} className="w-16 h-16 object-cover" />
+      </TableCell>
+      <TableCell>{product.name}</TableCell>
+      <TableCell>{product.category.name}</TableCell>
+      <TableCell className="">{product.stock}</TableCell>
+      <TableCell className="">
+        <div className='flex gap-2'>
+          {/* edit icon */}
+          <button className='text-blue-500 hover:text-blue-700' onClick={() => navigate(`/admin/edit-product/${product._id}`)}>
+            <Pencil className='w-5 h-5'/>
+            </button>
+            {/* delete icon */}
+          <button className="text-red-500 hover:text-red-700">
+            <Trash className="w-5 h-5"/>
+            </button>
+        </div>
+        {/* <Button variant="outline" size="sm" onClick={() => navigate(`/admin/edit-product/${product._id}`)}>Edit</Button> */}
+
+      </TableCell>
     </TableRow>
+
+      ))
+    )}
+
   </TableBody>
 </Table>
         </div>

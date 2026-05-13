@@ -6,6 +6,7 @@ import ProductDetails from "@/components/product/ProductDetails";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import Order from "@/pages/admin/Order";
 import Products from "@/pages/admin/Products";
+import Cart from "@/pages/public/Cart";
 import Home from "@/pages/public/Home";
 import Login from "@/pages/public/Login";
 import Register from "@/pages/public/Register";
@@ -45,7 +46,7 @@ export default function AppRoutes() {
         <Route index        element={<Home />} />
         <Route path="shop"  element={<Shop />} />
         <Route path="products/:id"  element={<ProductDetails />} />
-        {/* <Route path="cart"  element={<Cart />} /> */}
+        <Route path="cart"  element={<Cart />} />
 
         {/* User — must be logged in */}
         {/* <Route element={<ProtectedRoute roles={["user", "admin"]} />}>

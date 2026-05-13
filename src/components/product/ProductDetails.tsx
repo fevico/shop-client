@@ -1,18 +1,47 @@
 import { useGetProductDetailsQuery } from '@/services/api';
 import { Box, Shield, ShoppingCart, Star, Van } from 'lucide-react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Spinner } from '../ui/spinner';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/store/slice/cartSlice';
+import { useState } from 'react';
 
 const ProductDetails = () => {
-    const { id } = useParams();
+    const { id } = useParams(); 
     const {data, isLoading} = useGetProductDetailsQuery(id)
+    const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
     if(isLoading) {
         return <div className='flex justify-center items-center h-screen'>
             <Spinner />
         </div> 
+    } 
+
+    const dispatch = useDispatch();
+
+    const handleAddToCart = () => {
+        dispatch(addToCart({
+            productId: data.product._id,
+            name: data.product.name,
+            price: data.product.price, 
+            image: data.product.images[0].url,
+            quantity,
+            stock: data.product.stock,
+        }))
     }
 
+    const handleBuyNow = () => {
+        dispatch(addToCart({
+            productId: data.product._id,
+            name: data.product.name,
+            price: data.product.price, 
+            image: data.product.images[0].url,
+            quantity,
+            stock: data.product.stock,
+        }))
+        navigate('/cart');
+    }
   return (
     <div>  
 <div className="max-w-7xl mx-auto px-6 py-10">
@@ -45,16 +74,16 @@ const ProductDetails = () => {
   </span>
 </div>
                     {/* increasee and descreae quantity */}
-                    <div className="flex items-center border rounded-xl w-fit overflow-hidden">
-  <button className="px-4 py-2 hover:bg-gray-100">
+    <div className="flex items-center border rounded-xl w-fit overflow-hidden">
+  <button className="px-4 py-2 hover:bg-gray-100" onClick={() => setQuantity((prev : any) => prev > 1 ? prev -  1 : 1)}>
     -
   </button>
 
   <span className="px-6 font-medium">
-    1
+    {quantity}
   </span>
 
-  <button className="px-4 py-2 hover:bg-gray-100">
+  <button className="px-4 py-2 hover:bg-gray-100" onClick={() => setQuantity((prev : any) => prev < data?.product.stock ? prev + 1 : prev)}>
     +
   </button>
 </div>
@@ -64,6 +93,7 @@ const ProductDetails = () => {
     variant="outline"
     size="lg"
     className="flex-1 py-2 hover:bg-black hover:text-white"
+    onClick={handleAddToCart}
   >
     <ShoppingCart/>Add to Cart
   </Button>
@@ -71,6 +101,7 @@ const ProductDetails = () => {
   <Button
     size="lg"
     className="flex-1 bg-black hover:bg-black/90"
+    onClick={handleBuyNow}
   >
     Buy Now
   </Button>

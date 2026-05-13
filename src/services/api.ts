@@ -63,7 +63,7 @@ export const apiSlice = createApi({
       invalidatesTags: ['Products'],
     }),
 
-    getCategories: builder.query({
+    getCategories: builder.query<any, void>({
       query: () => '/categories',
       providesTags: ['Categories'],
     }),

@@ -20,7 +20,7 @@ import {
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import { Button } from "../ui/button";   
 import { useAuth } from "@/hook/useAuth";
-// import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/hook/useCart";
 
 // ─── Nav links config — edit here to add/remove links ───────────
 const NAV_LINKS = [
@@ -33,14 +33,9 @@ const NAV_LINKS = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-//   const { cartCount } = useCart();
   const { isAuthenticated, name, email, role, logout } = useAuth();
+  const { cartQuantity } = useCart();
 
-const user = {
-    name: "James",
-    email: "james@gmail.com",
-    role: "admin"
-}
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="mx-auto flex h-[68px] max-w-7xl items-center gap-8 px-6">
@@ -83,14 +78,14 @@ const user = {
             size="icon"
             className="relative h-10 w-10 rounded-lg border-gray-200"
             onClick={() => navigate("/cart")}
-            // aria-label={`Cart, ${cartCount} items`}
+            aria-label={`Cart, ${cartQuantity} items`}
           >
             <ShoppingCart size={18} />
-            {/* {cartCount > 0 && (
+            {cartQuantity > 0 && (
               <span className="absolute -right-1.5 -top-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-white bg-gray-900 px-1 text-[10px] font-bold text-white">
-                {cartCount > 99 ? "99+" : cartCount}
+                {cartQuantity > 99 ? "99+" : cartQuantity}
               </span>
-            )} */}
+            )}
           </Button>
 
           {/* ── User icon ── */}
@@ -181,7 +176,7 @@ const user = {
               {label}
             </NavLink>
           ))}
-          {!user && (
+          {!isAuthenticated && (
             <div className="flex gap-2 pt-3">
               <Button
                 variant="outline"
