@@ -52,7 +52,7 @@ const ProductDetails = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                 {/* image */}
                 <div className='flex-1'>
-                    <img src={data?.product.images[0].url} alt="product image" className="w-full h-[600px] object-cover rounded-2xl" />
+                    <img src={data?.product.images[0].url} alt="product image" className="w-full h-150 object-cover rounded-2xl" />
                 </div>
                 {/* details */}
                 <div className='flex-1'>

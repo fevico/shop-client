@@ -1,5 +1,7 @@
 import { Card } from '@/components/ui/card'
 import { DollarSign, ShoppingCart, UserRound } from 'lucide-react'
+import RevenueGraph from './RevenueGraph';
+import OrdersGraph from './OrdersGraph';
 
 const items = [
     {
@@ -37,8 +39,8 @@ const items = [
 ]
 const OverviewCard = () => {
   return (
-    <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       {items.map((item, index) => (
         <Card key={index} className="w-full p-4 rounded-xl">
           <div className="flex justify-between items-start">
@@ -68,14 +70,16 @@ const OverviewCard = () => {
       ))}
     </div>
     {/* overview graph */}
-    <div className="flex gap-4 w-full">
+    <div className="flex gap-6 w-full">
+
       {/* leftt side */}
       <div className="flex-1">
-
+      <RevenueGraph/>
       </div>
+
       {/* right side */}
       <div className="flex-1">
-
+      <OrdersGraph/>
       </div>
     </div>
     </div>

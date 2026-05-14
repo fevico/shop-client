@@ -6,7 +6,7 @@ const CartSummary = () => {
   if (cartItems.length === 0) return null;
 
   return (
-    <div className="w-[350px] border rounded-2xl p-6 space-y-6">
+    <div className="w-87.5 border rounded-2xl p-6 space-y-6">
 
       <h2 className="text-2xl font-semibold">
         Order Summary

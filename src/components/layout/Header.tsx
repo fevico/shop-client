@@ -38,7 +38,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
-      <div className="mx-auto flex h-[68px] max-w-7xl items-center gap-8 px-6">
+      <div className="mx-auto flex h-17 max-w-7xl items-center gap-8 px-6">
 
         {/* ── Logo ── */}
         <Link to="/" className="flex shrink-0 items-center gap-2">
@@ -82,7 +82,7 @@ export default function Header() {
           >
             <ShoppingCart size={18} />
             {cartQuantity > 0 && (
-              <span className="absolute -right-1.5 -top-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-white bg-gray-900 px-1 text-[10px] font-bold text-white">
+              <span className="absolute -right-1.5 -top-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full border-2 border-white bg-gray-900 px-1 text-[10px] font-bold text-white">
                 {cartQuantity > 99 ? "99+" : cartQuantity}
               </span>
             )}

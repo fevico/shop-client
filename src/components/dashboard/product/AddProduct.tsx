@@ -7,14 +7,14 @@ import { useCreateProductMutation, useGetCategoriesQuery } from "@/services/api"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
 import {z} from 'zod'
-
+   
 const productSchema = z.object({
   name: z.string().min(3, "Product name must be at least 3 characters long"),
   description: z.string().min(10, "Product description must be at least 10 characters long"),
   category: z.string().min(1, "Category is required"),
   price: z.coerce.number().min(1, "Price must be a positive number"),
   images: z  
-    .any() 
+    .any()
     .refine((files) => files?.length > 0, {
       message: "At least one image is required",
     }),

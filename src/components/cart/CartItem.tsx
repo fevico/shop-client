@@ -50,7 +50,7 @@ const CartItem = () => {
             <div className="flex items-center gap-4">
 
               {/* IMAGE */}
-              <div className="w-24 h-24 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+              <div className="w-24 h-24 rounded-xl overflow-hidden bg-gray-100 shrink-0">
                 <img
                   src={item.image}
                   alt={item.name}
