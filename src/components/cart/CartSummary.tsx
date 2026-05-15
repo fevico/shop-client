@@ -1,9 +1,14 @@
 import { useCart } from "@/hook/useCart";
+import { useNavigate } from "react-router-dom";
 
 const CartSummary = () => {
   const { cartItems, subtotal, tax, shipping, total } = useCart();
-
+    const navigate = useNavigate();
   if (cartItems.length === 0) return null;
+
+  const handleCheckout = () => {
+    navigate('/checkout')
+  }
 
   return (
     <div className="w-87.5 border rounded-2xl p-6 space-y-6">
@@ -40,7 +45,7 @@ const CartSummary = () => {
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="w-full bg-black text-white py-3 rounded-xl hover:bg-black/90">
+      <button onClick={handleCheckout} className="w-full bg-black text-white py-3 rounded-xl hover:bg-black/90">
         Proceed to Checkout
       </button>
 

@@ -5,12 +5,17 @@ import App from './App.tsx'
 import { Provider } from 'react-redux';
 import { persistor, store } from './store/store.ts';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Toaster } from './components/ui/sonner.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
         <App />
+        <Toaster 
+        position="top-center"
+        richColors={false}
+        />
       </PersistGate>
     </Provider>
   </StrictMode>

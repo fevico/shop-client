@@ -6,6 +6,7 @@ import { Spinner } from '../ui/spinner';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/store/slice/cartSlice';
 import { useState } from 'react';
+import { showToast } from '@/lib/toast.';
 
 const ProductDetails = () => {
     const { id } = useParams(); 
@@ -21,7 +22,8 @@ const ProductDetails = () => {
     const dispatch = useDispatch();
 
     const handleAddToCart = () => {
-        dispatch(addToCart({
+      try {
+                dispatch(addToCart({
             productId: data.product._id,
             name: data.product.name,
             price: data.product.price, 
@@ -29,6 +31,10 @@ const ProductDetails = () => {
             quantity,
             stock: data.product.stock,
         }))
+          showToast.success("Added to cart", `${data.product.name} has been added.`);
+      } catch (error) {
+          showToast.error("Failed to add product", `${data.product.name} has been added.`);
+      }
     }
 
     const handleBuyNow = () => {
