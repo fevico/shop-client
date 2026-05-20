@@ -1,6 +1,6 @@
 import { useCart } from "@/hook/useCart"
 import { Card } from "../ui/card"
-
+import { Button } from "../ui/button"
 
 const ReviewOrder = ({checkoutData}: any) => {
     const {cartItems} = useCart()
@@ -35,6 +35,7 @@ const ReviewOrder = ({checkoutData}: any) => {
                     ))}
                 </div>
             </div>
+            <Button className="py-4" size="lg">Place order</Button>
         </Card>
     </div>
   )

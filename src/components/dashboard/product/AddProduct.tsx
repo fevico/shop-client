@@ -51,12 +51,12 @@ const AddProduct = () => {
 
       {/* HEADER */}
       <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-semibold">Add Product</h3>
+        <h3 className="text-2xl font-semibold">Add Product</h3> 
 
         {/* Category modal still here */}
         <AddCategoryDialog />
       </div>
-
+     
       {/* FORM */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-2xl">
 

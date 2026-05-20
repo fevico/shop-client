@@ -12,9 +12,14 @@ const CategoryFilter = () => {
 
   return (
     <div>
-        <Card className='p-4 rounded-lg border max-h-screen py-4 overflow-y-auto'>
+        <Card className="p-6 rounded-2xl space-y-6 sticky top-24">
             <h3 className='font-semibold text-lg mb-4'>Filters</h3>
             <h5>Category</h5> 
+            <Button
+  className="w-full justify-start rounded-xl"
+>
+  All
+</Button>
             <div className='space-y-4'>
                 {isLoading ? (
                     <p>Loading categories...</p>

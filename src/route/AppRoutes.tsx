@@ -13,6 +13,7 @@ import Login from "@/pages/public/Login";
 import Register from "@/pages/public/Register";
 import Shop from "@/pages/public/Shop";
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRuoute";
 // import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // Public pages
@@ -48,7 +49,9 @@ export default function AppRoutes() {
         <Route path="shop"  element={<Shop />} />
         <Route path="products/:id"  element={<ProductDetails />} />
         <Route path="cart"  element={<Cart />} />
-        <Route path="checkout"  element={<Checkout />} />
+        <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
+          <Route path="checkout" element={<Checkout />} />
+        </Route>
 
         {/* User — must be logged in */}
         {/* <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
@@ -69,12 +72,19 @@ export default function AppRoutes() {
         {/* <Route path="*" element={<NotFound />} /> */}
       </Route>
       {/* admin route */}
+      <Route element={<ProtectedRoute roles={["admin"]} />}>
       <Route element={<AdminLayout />} >
         <Route path="admin" element={<AdminDashboard />} />
         <Route path="admin/products" element={<Products />} />
         <Route path="admin/add-product" element={<AddProduct />} />
         <Route path="admin/orders" element={<Order />} />
       </Route>
+      </Route>
     </Routes>
   );
 }
+
+        {/* USER PROTECTED */}
+        // <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
+        //   <Route path="checkout" element={<Checkout />} />
+        // </Route>  
