@@ -2,14 +2,14 @@ import { useCart } from "@/hook/useCart";
 import { Check } from "lucide-react";
 
 const OrderSummary = () => {
-      const { subtotal, tax, shipping, total } = useCart();
+  const { subtotal, tax, shipping, total } = useCart();
     
   return (
     <div className="w-[380px] border rounded-2xl p-6 space-y-6">
 
       <h2 className="font-semibold">
-        Order Summary
-      </h2>
+        Order Summary 
+      </h2>  
 
       <div className="space-y-4">
 

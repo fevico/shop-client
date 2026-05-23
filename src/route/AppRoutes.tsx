@@ -14,6 +14,7 @@ import Register from "@/pages/public/Register";
 import Shop from "@/pages/public/Shop";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRuoute";
+import PaymentSuccessful from "@/components/checkout/PaymentSuccessful";
 // import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // Public pages
@@ -51,6 +52,7 @@ export default function AppRoutes() {
         <Route path="cart"  element={<Cart />} />
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="checkout" element={<Checkout />} />
+          <Route path="payment-successful" element={<PaymentSuccessful />} />
         </Route>
 
         {/* User — must be logged in */}

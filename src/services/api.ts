@@ -14,7 +14,7 @@ export const apiSlice = createApi({
             return headers
         }
     }),
-    tagTypes: ['User', 'Auth', 'Categories', 'Products'],
+    tagTypes: ['User', 'Auth', 'Categories', 'Products', 'Payments'],
     endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -72,10 +72,20 @@ export const apiSlice = createApi({
       query: () => '/products',
       providesTags: ['Products'],
     }),
-    getProductDetails: builder.query({
+  getProductDetails: builder.query({
   query: (id) => `/products/${id}`,
   providesTags: ["Products"],
   }),
+
+  paymentIntent: builder.mutation({
+      query: (credentials) => ({
+        url: '/payment/intent',
+        method: 'POST',
+        body: credentials,
+      }),
+      // After registration, invalidate auth cache to refresh
+      invalidatesTags: ['Payments'],
+    }),
   })
 })
 
@@ -87,5 +97,6 @@ useCreateCategoryMutation,
 useCreateProductMutation,
 useGetCategoriesQuery,
 useGetProductsQuery,
-useGetProductDetailsQuery
+useGetProductDetailsQuery,
+usePaymentIntentMutation
 } = apiSlice

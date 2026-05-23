@@ -1,8 +1,9 @@
 import { useCart } from "@/hook/useCart"
 import { Card } from "../ui/card"
 import { Button } from "../ui/button"
+import { Spinner } from "../ui/spinner"
 
-const ReviewOrder = ({checkoutData}: any) => {
+const ReviewOrder = ({checkoutData, isLoading, handlePaymentIntent}: any) => {
     const {cartItems} = useCart()
   return (
     <div>
@@ -35,7 +36,9 @@ const ReviewOrder = ({checkoutData}: any) => {
                     ))}
                 </div>
             </div>
-            <Button className="py-4" size="lg">Place order</Button>
+            <Button onClick={handlePaymentIntent} className="py-4" size="lg">
+                {isLoading ? <Spinner/> : "Place Order"}
+            </Button>
         </Card>
     </div>
   )

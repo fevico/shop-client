@@ -3,10 +3,16 @@ import ShippingForm from "@/components/checkout/ShippingForm";
 import ReviewOrder from "@/components/checkout/ReviewOrder";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import CheckoutSteps from "@/components/checkout/CheckoutSteps";
+import { useCart } from "@/hook/useCart";
+import { usePaymentIntentMutation } from "@/services/api";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/store/slice/cartSlice";
 
-const Checkout = () => {
+const Checkout = () => { 
   const [step, setStep] = useState(1);
-
+  const {cartItems} = useCart()
+  const [paymentIntent, {isLoading}] = usePaymentIntentMutation()
+  const dispatch = useDispatch();
   // Shared form data
   const [checkoutData, setCheckoutData] = useState({
     fullName: "",
@@ -20,6 +26,34 @@ const Checkout = () => {
     expiryDate: "",
     cvv: "",
   });
+
+  const handlePayment = async () => {
+  const payload = {
+    email: checkoutData.email,
+    name: checkoutData.fullName,
+    // shippingAddress: {
+    //   fullName: checkoutData.fullName,
+    //   address: checkoutData.address,
+    //   city: checkoutData.city,
+    //   postalCode: checkoutData.postalCode,
+    //   country: checkoutData.country,
+    // },
+    items: cartItems.map((item: any) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    })),
+  };
+
+
+  try {
+    const response = await paymentIntent(payload).unwrap()
+    dispatch(clearCart())
+    window.location.href = response.data.authorization_url;
+  } catch (error) {
+    console.log("unable to process payment..", error)
+  }
+
+};
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
@@ -48,6 +82,8 @@ const Checkout = () => {
           {step === 2 && (
             <ReviewOrder
               checkoutData={checkoutData}
+              isLoading={isLoading}
+              handlePaymentIntent={handlePayment}
               prevStep={() => setStep(2)}
             />
           )}

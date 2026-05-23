@@ -36,6 +36,14 @@ export default function Header() {
   const { isAuthenticated, name, email, role, logout } = useAuth();
   const { cartQuantity } = useCart();
 
+  const handleProfileNavigation = () => {
+  if (role === "admin") {
+    navigate("/admin");
+  } else {
+    navigate("/profile");       
+  }
+};
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="mx-auto flex h-17 max-w-7xl items-center gap-8 px-6">
@@ -111,7 +119,8 @@ export default function Header() {
                 <DropdownMenuItem onClick={() => navigate("/orders")}>
                   My Orders
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/profile")}>
+                {/* handle role base navigation */}
+                <DropdownMenuItem onClick={handleProfileNavigation}>
                   Profile
                 </DropdownMenuItem>
                 {role === "admin" && (
