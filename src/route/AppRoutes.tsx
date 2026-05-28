@@ -15,6 +15,10 @@ import Shop from "@/pages/public/Shop";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRuoute";
 import PaymentSuccessful from "@/components/checkout/PaymentSuccessful";
+import UserDashboard from "@/pages/user/UserDashboard";
+import UserLayout from "@/components/layout/UserLayout";
+import Settings from "@/pages/user/Settings";
+import Orders from "@/pages/user/Orders";
 // import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // Public pages
@@ -55,24 +59,20 @@ export default function AppRoutes() {
           <Route path="payment-successful" element={<PaymentSuccessful />} />
         </Route>
 
-        {/* User — must be logged in */}
-        {/* <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
-          <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="orders"    element={<Orders />} />
-          <Route path="profile"   element={<Profile />} />
-        </Route> */}
-
-        {/* Admin — must have admin role */}
-        {/* <Route element={<ProtectedRoute roles={["admin"]} />}>
-          <Route path="admin"                element={<AdminDashboard />} />
-          <Route path="admin/products"       element={<ManageProducts />} />
-          <Route path="admin/orders"         element={<ManageOrders />} />
-          <Route path="admin/users"          element={<ManageUsers />} />
-        </Route> */}
-
         {/* 404 */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Route>
+
+              {/* User — must be logged in */}
+        <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
+          <Route element={<UserLayout/>}>
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="orders"    element={<Orders />} />
+          <Route path="settings"    element={<Settings />} />
+          {/* <Route path="profile"   element={<Profile />} /> */}
+          </Route>
+        </Route>
+
       {/* admin route */}
       <Route element={<ProtectedRoute roles={["admin"]} />}>
       <Route element={<AdminLayout />} >

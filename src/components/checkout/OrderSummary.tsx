@@ -9,7 +9,7 @@ const OrderSummary = () => {
 
       <h2 className="font-semibold">
         Order Summary 
-      </h2>  
+      </h2> 
 
       <div className="space-y-4">
 
