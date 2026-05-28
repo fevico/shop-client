@@ -42,7 +42,7 @@ const UserLayout = () => {
         </main>
           
       </div>
-    </div>
+    </div>     
   );
 };
 

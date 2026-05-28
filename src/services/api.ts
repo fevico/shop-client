@@ -86,6 +86,12 @@ export const apiSlice = createApi({
       // After registration, invalidate auth cache to refresh
       invalidatesTags: ['Payments'],
     }),
+
+  getMyOrders: builder.query({
+  query: () => `/payment/my-orders`,
+  providesTags: ["Payments"],
+  }),
+
   })
 })
 
@@ -98,5 +104,6 @@ useCreateProductMutation,
 useGetCategoriesQuery,
 useGetProductsQuery,
 useGetProductDetailsQuery,
-usePaymentIntentMutation
+usePaymentIntentMutation,
+useGetMyOrdersQuery,
 } = apiSlice

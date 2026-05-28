@@ -31,13 +31,13 @@ const Checkout = () => {
   const payload = {
     email: checkoutData.email,
     name: checkoutData.fullName,
-    // shippingAddress: {
-    //   fullName: checkoutData.fullName,
-    //   address: checkoutData.address,
-    //   city: checkoutData.city,
-    //   postalCode: checkoutData.postalCode,
-    //   country: checkoutData.country,
-    // },
+    shippingAddress: {
+      fullName: checkoutData.fullName,
+      address: checkoutData.address,
+      city: checkoutData.city,
+      postalCode: checkoutData.postalCode,
+      country: checkoutData.country,
+    },
     items: cartItems.map((item: any) => ({
       productId: item.productId,
       quantity: item.quantity,
@@ -47,8 +47,9 @@ const Checkout = () => {
 
   try {
     const response = await paymentIntent(payload).unwrap()
+    console.log("checkout", response)
     dispatch(clearCart())
-    window.location.href = response.data.authorization_url;
+    window.location.href = response.authorization_url; 
   } catch (error) {
     console.log("unable to process payment..", error)
   }

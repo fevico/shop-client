@@ -29,7 +29,7 @@ const UserSidebar = () => {
       {/* LOGO */}
       {/* <h2 className="text-2xl font-bold mb-8">
         ShopHub
-      </h2> */}
+      </h2> */} 
 
       {/* USER INFO */}
       <div className="flex flex-col items-center text-center mb-8">

@@ -19,26 +19,7 @@ import UserDashboard from "@/pages/user/UserDashboard";
 import UserLayout from "@/components/layout/UserLayout";
 import Settings from "@/pages/user/Settings";
 import Orders from "@/pages/user/Orders";
-// import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
-// Public pages
-// import Home       from "@/pages/public/Home";
-// import Shop       from "@/pages/public/Shop";
-// import Cart       from "@/pages/public/Cart";
-// import Login      from "@/pages/public/Login";
-// import Register   from "@/pages/public/Register";
-// import NotFound   from "@/pages/public/NotFound";
-
-// User pages
-// import UserDashboard from "@/pages/user/UserDashboard";
-// import Orders        from "@/pages/user/Orders";
-// import Profile       from "@/pages/user/Profile";
-
-// Admin pages
-// import AdminDashboard  from "@/pages/admin/AdminDashboard";
-// import ManageProducts  from "@/pages/admin/ManageProducts";
-// import ManageOrders    from "@/pages/admin/ManageOrders";
-// import ManageUsers     from "@/pages/admin/ManageUsers";
 
 export default function AppRoutes() {
   return ( 
@@ -57,13 +38,13 @@ export default function AppRoutes() {
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="checkout" element={<Checkout />} />
           <Route path="payment-successful" element={<PaymentSuccessful />} />
-        </Route>
+        </Route> 
 
         {/* 404 */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Route>
 
-              {/* User — must be logged in */}
+          {/* User — must be logged in */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route element={<UserLayout/>}>
           <Route path="dashboard" element={<UserDashboard />} />
@@ -85,8 +66,3 @@ export default function AppRoutes() {
     </Routes>
   );
 }
-
-        {/* USER PROTECTED */}
-        // <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
-        //   <Route path="checkout" element={<Checkout />} />
-        // </Route>  

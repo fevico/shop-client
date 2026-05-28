@@ -1,31 +1,38 @@
 import { Card } from "@/components/ui/card"
 import OrderCard from "@/components/user-dashborad/OrderCard"
+import { useGetMyOrdersQuery } from "@/services/api"
 import { Box, ShoppingCart } from "lucide-react"
+import { useState } from "react"
 
-const items = [
+const UserDashboard = () => {
+    const [page, setPage] = useState(1);
+    const { data, isLoading } = useGetMyOrdersQuery({page, limit: 5});
+      const totalSpent = data?.totalSpent || 0;
+
+    const items = [
     {
         icon: Box,
         title: "total orders",
-        number: "24",
+        number: data?.totalOrders,
         color: "bg-purple-100 text-purple-500",
         description: "+3 this month"
     },
     {
         icon: ShoppingCart,
         title: "total spent",
-        number: "$2,459",
+        number: `$${totalSpent.toFixed(2)}`,
         color: "bg-blue-100 text-blue-500",
         description: "Lifetime"
     }
 ]
-const UserDashboard = () => {
-  return (
+
+return (
     <div className="flex flex-col gap-4">
         <h1 className="text-xl font-semibold">Welcome back, John</h1>
         <p className="text-sm text-gray-500">Here's what's happening with your account</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {items.map((item, index) => (
-            <Card className="p-4" key={index}>
+            <Card className="p-4" key={index}> 
                 <div className="flex flex-col gap-2">
                     {/* icon */}
                     <div className="flex justify-between">
@@ -40,7 +47,7 @@ const UserDashboard = () => {
             </Card>
             ))}
         </div>
-        <OrderCard/>
+        <OrderCard data={data} isLoading={isLoading}  page={page} setpage={setPage}/>
     </div>
   )
 }
