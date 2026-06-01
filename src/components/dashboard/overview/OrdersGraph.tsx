@@ -1,16 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { BarChart, ResponsiveContainer, Legend,  XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts';
 
-const data = [
-  { name: "Jan", revenue: 156 },
-  { name: "Feb", revenue: 196 },
-  { name: "Mar", revenue: 234 },
-  { name: "Apr", revenue: 287 },
-  { name: "May", revenue: 256 },
-  { name: "Jun", revenue: 312 },
-];
-
-const OrdersGraph = () => {
+const OrdersGraph = ({stats}: any) => {
   return (
     <div>
         <Card className='w-full p-6 rounded-2xl'>
@@ -20,9 +11,9 @@ const OrdersGraph = () => {
         </h2>
         <div className="w-full h-87.5">
             <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data}>
+                <BarChart data={stats}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f1f1" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="month" />
                     <YAxis width="auto" />
                     <Tooltip />
                     <Legend />

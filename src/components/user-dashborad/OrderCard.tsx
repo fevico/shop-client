@@ -20,7 +20,6 @@ const statusStyles = {
 };
 
 const OrderCard = ({data, isLoading, page, setpage}: any) => {
-  console.log("data", data)
 
 if (isLoading) {
   return (
@@ -28,7 +27,7 @@ if (isLoading) {
       <Spinner className="w-10 h-10" />
     </div>
   );
-}   
+} 
 
   return (
     <div>

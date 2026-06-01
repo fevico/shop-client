@@ -9,16 +9,8 @@ import {
   AreaChart,
 } from "recharts";
 
-const data = [
-  { name: "Jan", revenue: 12000 },
-  { name: "Feb", revenue: 15000 },
-  { name: "Mar", revenue: 18000 },
-  { name: "Apr", revenue: 22000 },
-  { name: "May", revenue: 20000 },
-  { name: "Jun", revenue: 25000 },
-];
 
-const RevenueGraph = () => {
+const RevenueGraph = ({stats}: any) => {
   return (
     <Card className="w-full p-6 rounded-2xl">
       
@@ -31,7 +23,7 @@ const RevenueGraph = () => {
       <div className="w-full h-87.5">
         <ResponsiveContainer width="100%" height="100%">
 
-          <AreaChart data={data}>
+          <AreaChart data={stats}>
 
             {/* Gradient color */}
             <defs>
@@ -58,12 +50,12 @@ const RevenueGraph = () => {
 
             {/* X axis */}
             <XAxis
-              dataKey="name"
+              dataKey="month"
               tickLine={false}
               axisLine={false}
               tick={{ fontSize: 14 }}
             />
-
+  
             {/* Y axis */}
             <YAxis
               tickLine={false}

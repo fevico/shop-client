@@ -14,7 +14,7 @@ export const apiSlice = createApi({
             return headers
         }
     }),
-    tagTypes: ['User', 'Auth', 'Categories', 'Products', 'Payments'],
+    tagTypes: ['User', 'Auth', 'Categories', 'Products', 'Payments', 'Orders'],
     endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
@@ -92,6 +92,33 @@ export const apiSlice = createApi({
   providesTags: ["Payments"],
   }),
 
+  getAdminDashboardStats: builder.query({
+  query: () => '/payment/admin/dashboard-stats',
+  providesTags: ["Payments"],
+  }),
+
+  getOrders: builder.query({
+  query: () => "/payment/orders",
+  providesTags: ["Payments"],
+  }),
+
+  deleteOrder: builder.mutation({
+  query: (orderId: string) => ({
+    url: `/orders/${orderId}`,
+    method: "DELETE",
+  }),
+  invalidatesTags: ["Orders"],
+}),
+
+updateOrderStatus: builder.mutation({
+  query: ({ orderId, status }) => ({
+    url: `payment/orders/${orderId}/status`,
+    method: "PATCH",
+    body: { status },
+  }),
+  invalidatesTags: ["Orders"],
+}),
+
   })
 })
 
@@ -106,4 +133,8 @@ useGetProductsQuery,
 useGetProductDetailsQuery,
 usePaymentIntentMutation,
 useGetMyOrdersQuery,
+useGetAdminDashboardStatsQuery,
+useGetOrdersQuery,
+useDeleteOrderMutation,
+useUpdateOrderStatusMutation
 } = apiSlice

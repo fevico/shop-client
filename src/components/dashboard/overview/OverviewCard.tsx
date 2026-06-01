@@ -2,42 +2,52 @@ import { Card } from '@/components/ui/card'
 import { DollarSign, ShoppingCart, UserRound } from 'lucide-react'
 import RevenueGraph from './RevenueGraph';
 import OrdersGraph from './OrdersGraph';
+import { useGetAdminDashboardStatsQuery } from '@/services/api';
 
-const items = [
-    {
+const OverviewCard = () => {
+    const {data, isLoading} = useGetAdminDashboardStatsQuery()
+    console.log("overview", data)
+    const revenue = data?.kpis?.revenue
+    const orders = data?.kpis?.orders
+    const customers = data?.kpis?.customers
+    const products = data?.kpis?.products
+
+    const stats = data?.chartData
+  const items = [
+    { 
         title: "Total Revenue",
         icon: DollarSign,
-        total: "$12,345",
+        total: `$${revenue.value}`,
         description: "This month",
         color: "bg-purple-100 text-purple-600",
-        percentage: "+12.1%"
+        percentage: revenue.percentage
     },
     {
         title: "Total orders",
         icon: ShoppingCart,
-        total: "1,443",
+        total: orders.value,
         description: "This month",
         color: "bg-blue-100 text-blue-600",
-        percentage: "+8.2%"
+        percentage: orders.percentage
     },
     {
         title: "Total Customers",
         icon: UserRound,
-        total: "8,245",
+        total: customers.value,
         description: "Active users",
         color: "bg-green-100 text-green-600",
-        percentage: "+15.3%"
+        percentage: customers.percentage || 0
     },
     {
         title: "Products",
         icon: DollarSign,
-        total: "423",
+        total: products.value,
         description: "In inventory",
         color: "bg-red-100 text-red-600",
-        percentage: "-3.1%"
+        percentage: products.percentage || 0
     }
 ]
-const OverviewCard = () => {
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -51,13 +61,16 @@ const OverviewCard = () => {
 
             {/* Percentage */}
           <p className={`text-sm mt-2 ${
-              item.percentage.startsWith("+")
-                ? "text-green-500"
-                : "text-red-500"
+                  item.percentage > 0
+                     ? "text-green-500"
+                    : item.percentage < 0
+                    ? "text-red-500"
+                  : "text-gray-500"
             }`}
           >
-            {item.percentage}
-          </p>
+            {item.percentage > 0 && "+"}
+            {item.percentage}%
+          </p> 
 
           </div>
 
@@ -74,12 +87,12 @@ const OverviewCard = () => {
 
       {/* leftt side */}
       <div className="flex-1">
-      <RevenueGraph/>
+      <RevenueGraph stats={stats}/>
       </div>
 
       {/* right side */}
       <div className="flex-1">
-      <OrdersGraph/>
+      <OrdersGraph stats={stats}/>
       </div>
     </div>
     </div>
