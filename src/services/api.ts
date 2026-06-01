@@ -92,9 +92,9 @@ export const apiSlice = createApi({
   providesTags: ["Payments"],
   }),
 
-  getAdminDashboardStats: builder.query({
-  query: () => '/payment/admin/dashboard-stats',
-  providesTags: ["Payments"],
+  getAdminDashboardStats: builder.query<any, void>({
+  query: () => "/admin/dashboard/stats",
+  providesTags: ["Orders", "Payments"],
   }),
 
   getOrders: builder.query({

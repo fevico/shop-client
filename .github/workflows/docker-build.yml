@@ -1,0 +1,33 @@
+name: E-commerce Client CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # NEW STEP: Install your packages directly onto the Ubuntu machine
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run build
+      run: npm run build
+    
+
+    # This step ONLY runs if 'npm test' passes successfully!
+    - name: Build Frontend Docker Image
+      run: |
+        echo "🎨 Building your Vite/React Frontend Docker Image..."
+        docker build -t ecommerce-frontend:latest .
+        echo "✅ Frontend Image compiled successfully!"

@@ -77,6 +77,7 @@ const UpdateOrderStatusModal = ({
         </Select>
 
         <Button
+        className="bg-purple-600 w-full mt-4"
         disabled={isLoading}
           onClick={() =>
             onUpdate(order._id, status)

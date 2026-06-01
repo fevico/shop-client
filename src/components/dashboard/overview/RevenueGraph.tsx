@@ -11,6 +11,7 @@ import {
 
 
 const RevenueGraph = ({stats}: any) => {
+  console.log("revenue stats", stats)
   return (
     <Card className="w-full p-6 rounded-2xl">
       

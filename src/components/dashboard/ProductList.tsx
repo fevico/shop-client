@@ -9,6 +9,14 @@ const ProductList = () => {
     const navigate = useNavigate();
     const {data, isLoading} = useGetProductsQuery()
 
+    if (isLoading) {
+      return (
+        <div className="flex items-center justify-center min-h-[300px]">
+          <Spinner className="w-10 h-10" />
+        </div>
+      );
+    }
+
     return (
     <div>
         <div className='flex justify-between items-center mb-4'>

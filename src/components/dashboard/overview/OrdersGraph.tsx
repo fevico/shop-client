@@ -17,7 +17,7 @@ const OrdersGraph = ({stats}: any) => {
                     <YAxis width="auto" />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="revenue" fill="#9333ea"  />
+                    <Bar dataKey="orders" fill="#9333ea"  />
                 </BarChart>
             </ResponsiveContainer>
         </div>
