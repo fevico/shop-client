@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { Card } from '../ui/card'
 import { Input } from '../ui/input'
@@ -8,6 +8,7 @@ import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch } from 'react-redux'
 import { loginSuccess } from '@/store/slice/authSlice'
+import { showToast } from '@/lib/toast.'
 
 const tokenShcema = z.object({
     otp: z.string().length(6, "Token must be 6 characters long")
@@ -18,6 +19,8 @@ type formFields = z.infer<typeof tokenShcema>
 const VerifiyToken = () => {
     const [searchParams] = useSearchParams()
     const email = searchParams.get("email")
+
+    const navigate = useNavigate()
 
     const [verifyEmail, {isLoading}] = useVerifyEmailMutation()
           const dispatch =  useDispatch()  
@@ -30,10 +33,15 @@ const VerifiyToken = () => {
             console.log("response from token", response)
             dispatch(loginSuccess({
                 token: response.token,
-                isAuthenticated: true
+                isAuthenticated: true,
+                role: response.user?.role,
+                name: response.user?.name,
             }))
+            showToast.success("Email verified successfully", "Your email has been verified.");
+            navigate("/")
         } catch (error) {
             console.log("error", error)
+            showToast.error("Verification failed", "Please check your token and try again.");
         }
     }
   return (

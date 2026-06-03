@@ -77,6 +77,16 @@ export const apiSlice = createApi({
   providesTags: ["Products"],
   }),
 
+  editProduct: builder.mutation({
+  query: ({ id, credentials }) => ({
+    url: `/products/${id}`,   
+    method: 'PUT',
+    body: credentials,
+  }),
+  // After registration, invalidate auth cache to refresh
+  invalidatesTags: ['Products'],
+}),
+
   paymentIntent: builder.mutation({
       query: (credentials) => ({
         url: '/payment/intent',
@@ -93,7 +103,7 @@ export const apiSlice = createApi({
   }),
 
   getAdminDashboardStats: builder.query<any, void>({
-  query: () => "/admin/dashboard/stats",
+  query: () => "/payment/admin/dashboard-stats",
   providesTags: ["Orders", "Payments"],
   }),
 
@@ -131,6 +141,7 @@ useCreateProductMutation,
 useGetCategoriesQuery,
 useGetProductsQuery,
 useGetProductDetailsQuery,
+useEditProductMutation,
 usePaymentIntentMutation,
 useGetMyOrdersQuery,
 useGetAdminDashboardStatsQuery,

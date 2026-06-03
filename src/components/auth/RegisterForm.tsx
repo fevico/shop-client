@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import z from 'zod'
 import { useSignupMutation } from '@/services/api'
+import { showToast } from '@/lib/toast.'
 
 const registerSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -32,9 +33,11 @@ const RegisterForm = () => {
             const result = await signup(data).unwrap();
             console.log("signup result", result)
             reset()
+            showToast.success("Account created successfully", `Welcome, ${data.name}! Please verify your email.`);
             navigate(`/verify-token?email=${data.email}`)
           } catch (error) {
             console.log("signup error", error)
+            showToast.error("Registration failed", "Please try again.");
           }
         }
 
@@ -61,7 +64,7 @@ const RegisterForm = () => {
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                 <Input type={showPassword ? "text" : "password"}  {...register("password")} placeholder="enter your password" className="w-full"/>
-                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" onClick={()=> setShowPassword(!showPassword)}>
+                <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" onClick={()=> setShowPassword(!showPassword)}>
                     {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
                 </button>
                 </div>

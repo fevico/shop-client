@@ -19,7 +19,7 @@ import UserDashboard from "@/pages/user/UserDashboard";
 import UserLayout from "@/components/layout/UserLayout";
 import Settings from "@/pages/user/Settings";
 import Orders from "@/pages/user/Orders";
-
+import EditProduct from "@/components/dashboard/product/EditProduct";
 
 export default function AppRoutes() {
   return ( 
@@ -38,7 +38,7 @@ export default function AppRoutes() {
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="checkout" element={<Checkout />} />
           <Route path="payment-successful" element={<PaymentSuccessful />} />
-        </Route> 
+        </Route>      
 
         {/* 404 */}
         {/* <Route path="*" element={<NotFound />} /> */}
@@ -61,6 +61,7 @@ export default function AppRoutes() {
         <Route path="admin/products" element={<Products />} />
         <Route path="admin/add-product" element={<AddProduct />} />
         <Route path="admin/orders" element={<Order />} />
+        <Route path="admin/edit-product/:productId" element={<EditProduct />}/> 
       </Route>
       </Route>
     </Routes>

@@ -1,9 +1,12 @@
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { CheckCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const PaymentSuccessful = () => {
+  const [searchParams] = useSearchParams()
+  const reference = searchParams.get("reference")
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
 
@@ -34,7 +37,7 @@ const PaymentSuccessful = () => {
             </p>
 
             <p className="mt-1 break-all font-medium text-gray-800">
-              REF-123456789
+              {reference || "REF-123456789"}
             </p>
           </div>
 

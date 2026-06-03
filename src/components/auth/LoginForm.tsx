@@ -12,6 +12,7 @@ import { useLoginMutation } from "@/services/api"
 import { useDispatch } from "react-redux"
 import { loginSuccess } from "@/store/slice/authSlice"
 import { Spinner } from "../ui/spinner"
+import { showToast } from "@/lib/toast."
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -40,9 +41,11 @@ const LoginForm = () => {
             role: result.user?.role,
             name: result.user?.name,
         }))
+        showToast.success("Login successful", `Welcome back, ${result.user?.name}!`);
         navigate("/shop")
       } catch (error) {
         console.log("error", error)
+        showToast.error("Login failed", "Please check your credentials and try again.");
       }
     }
 
@@ -63,10 +66,10 @@ const LoginForm = () => {
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                 <Input type={showPassword ? "text" : "password"}  {...register("password")} placeholder="enter your password" className="w-full"/>
-                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" onClick={()=> setShowPassword(!showPassword)}>
+                <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" onClick={()=> setShowPassword(!showPassword)}>
                     {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
                 </button>
-                </div>
+                </div> 
                 </div>
                    {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
             </div>

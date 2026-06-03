@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
+import { showToast } from "@/lib/toast."
 import { useCreateProductMutation, useGetCategoriesQuery } from "@/services/api"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
@@ -12,7 +13,7 @@ const productSchema = z.object({
   name: z.string().min(3, "Product name must be at least 3 characters long"),
   description: z.string().min(10, "Product description must be at least 10 characters long"),
   category: z.string().min(1, "Category is required"),
-  price: z.number().min(1, "Price must be a positive number"),
+  price: z.string().min(1, "Price must be a positive number"),
   images: z  
     .any()
     .refine((files) => files?.length > 0, {
@@ -43,8 +44,10 @@ const AddProduct = () => {
     const response = await createProduct(formdata).unwrap();
     reset();
     console.log("Product created:", response);
+    showToast.success("Product created", `${response.product.name} has been created.`);
     } catch (error) {
       console.error("Error creating product:", error);
+      showToast.error("Failed to create product", `An error occurred while creating the product.`);
     }
   }
   return (
@@ -82,11 +85,11 @@ const AddProduct = () => {
         {/* price */}
           <div className="space-y-1">
           <Label>Product Price</Label>
-          <Input type="number" {...register("price")} placeholder="Enter product price" />
+          <Input type="text" {...register("price")} placeholder="Enter product price" />
         </div>
         {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
 
-        {/* Category */}  
+        {/* Category */}
         <div className="space-y-1">
           <Label>Category</Label>
           <select

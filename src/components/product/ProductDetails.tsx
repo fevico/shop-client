@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '@/store/slice/cartSlice';
 import { useState } from 'react';
 import { showToast } from '@/lib/toast.';
+import ProductImageGallery from './ProductImageGallery';
 
 const ProductDetails = () => {
     const { id } = useParams(); 
@@ -23,7 +24,7 @@ const ProductDetails = () => {
 
     const handleAddToCart = () => {
       try {
-                dispatch(addToCart({
+            dispatch(addToCart({
             productId: data.product._id,
             name: data.product.name,
             price: data.product.price, 
@@ -46,10 +47,12 @@ const ProductDetails = () => {
             quantity,
             stock: data.product.stock,
         }))
+        showToast.success("Added to cart", `${data.product.name} has been added.`);
         navigate('/cart');
-    }
+    }  
+
   return (
-    <div>  
+    <div>
 <div className="max-w-7xl mx-auto px-6 py-10">
   <p className="mb-6 text-sm text-gray-500">
     Back to shop
@@ -57,11 +60,12 @@ const ProductDetails = () => {
             {/* <div className='flex gap-6'> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                 {/* image */}
-                <div className='flex-1'>
-                    <img src={data?.product.images[0].url} alt="product image" className="w-full h-150 object-cover rounded-2xl" />
+                <div className=''>
+                    {/* <img src={data?.product.images[0].url} alt="product image" className="w-full h-150 object-cover rounded-2xl" /> */}
+                    <ProductImageGallery images={data?.product.images || []} />
                 </div>
                 {/* details */}
-                <div className='flex-1'>
+                <div className=''>
                     <div className='flex flex-col gap-4'>
                     <p className="text-sm text-gray-500 uppercase tracking-wide">
                         {data?.product.category.name}
@@ -133,7 +137,7 @@ const ProductDetails = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
   )
 }
 

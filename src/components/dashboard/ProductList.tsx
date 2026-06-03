@@ -60,8 +60,7 @@ const ProductList = () => {
             <Trash className="w-5 h-5"/>
             </button>
         </div>
-        {/* <Button variant="outline" size="sm" onClick={() => navigate(`/admin/edit-product/${product._id}`)}>Edit</Button> */}
-
+ 
       </TableCell>
     </TableRow>
 

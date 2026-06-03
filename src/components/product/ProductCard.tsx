@@ -38,6 +38,15 @@ const ProductCard = ({ product, variant = 'shop' }: ProductCardProps) => {
   };
 
   const { rating, reviews } = getMockRatingAndReviews(product.name);
+
+  const truncateText = (
+  text: string,
+  maxLength: number
+) => {
+  return text.length > maxLength
+    ? `${text.slice(0, maxLength)}...`
+    : text;
+};
   
   return (
     <div> 
@@ -89,7 +98,7 @@ const ProductCard = ({ product, variant = 'shop' }: ProductCardProps) => {
             </h3>
 
             <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
-              {product.description}
+              {truncateText(product.description, 20)}
             </p>
 
             <div className="flex items-center gap-1.5 text-sm">
