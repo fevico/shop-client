@@ -37,7 +37,7 @@ export const products = [
 
 const FeaturedProduct = () => {
   const navigate = useNavigate();
-  const {data, isLoading} = useGetProductsQuery()
+  const {data, isLoading} = useGetProductsQuery({})
    
     if (isLoading) {
       return (
