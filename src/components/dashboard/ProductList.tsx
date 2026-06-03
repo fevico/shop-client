@@ -7,7 +7,7 @@ import { Spinner } from '../ui/spinner';
 
 const ProductList = () => {
     const navigate = useNavigate();
-    const {data, isLoading} = useGetProductsQuery()
+    const {data, isLoading} = useGetProductsQuery({})
 
     if (isLoading) {
       return (

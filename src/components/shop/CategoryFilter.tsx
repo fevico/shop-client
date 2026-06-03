@@ -7,7 +7,12 @@ interface Category {
     name: string;
     description: string
 }
-const CategoryFilter = () => {
+interface CategoryFilterProps {
+  selectedCategory: string;
+  onCategoryChange: (categoryId: string) => void;
+}
+
+const CategoryFilter = ({ selectedCategory, onCategoryChange }:  CategoryFilterProps ) => {
   const {data, isLoading, error } = useGetCategoriesQuery();
 
   return (
@@ -16,10 +21,11 @@ const CategoryFilter = () => {
             <h3 className='font-semibold text-lg mb-4'>Filters</h3>
             <h5>Category</h5> 
             <Button
-  className="w-full justify-start rounded-xl"
->
-  All
-</Button>
+            className="w-full justify-start rounded-xl"
+            onClick={() => onCategoryChange("")}
+          >
+            All
+          </Button>
             <div className='space-y-4'>
                 {isLoading ? (
                     <p>Loading categories...</p>
@@ -28,7 +34,8 @@ const CategoryFilter = () => {
                 ) : (
                     data?.categories.map((category: Category, index: number) => (
                         <div key={index} className='flex items-center '>
-                            <Button variant="ghost" size="sm" className='text-left text-sm py-4 font-semibold hover:bg-gray-200 rounded-md w-full justify-start'>
+                            <Button onClick={() => onCategoryChange(category._id)} variant={selectedCategory === category._id ? "default" : "ghost"}
+                             size="sm" className='text-left text-sm py-4 font-semibold hover:bg-gray-200 rounded-md w-full justify-start'>
                                 {category.name}
                             </Button>
                     </div>

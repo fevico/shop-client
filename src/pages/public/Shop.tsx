@@ -2,10 +2,14 @@ import ProductCard from "@/components/product/ProductCard"
 import CategoryFilter from "@/components/shop/CategoryFilter"
 import { Spinner } from "@/components/ui/spinner"
 import { useGetProductsQuery } from "@/services/api"
+import { useState } from "react"
 
 const Shop = () => { 
-    const {data, isLoading} = useGetProductsQuery()
+  
+  const [selectedCategory, setSelectedCategory] =  useState("")
 
+  const {data, isLoading} = useGetProductsQuery({category: selectedCategory})
+  console.log("data", data)
     if (isLoading) {
         return ( 
           <div className="flex items-center justify-center min-h-[300px]">
@@ -21,8 +25,8 @@ const Shop = () => {
       <div className="flex gap-8 items-start mt-8">
         <div className="w-full max-w-[280px]">    
           {/* <CategoryFilter /> */}
-          <CategoryFilter />
-        </div>  
+          <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+        </div>
 
         <div className="flex-1">
           {/* <ProductList /> */}
