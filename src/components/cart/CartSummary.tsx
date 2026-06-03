@@ -7,7 +7,7 @@ const CartSummary = () => {
   if (cartItems.length === 0) return null;
 
   const handleCheckout = () => {
-    navigate('/checkout')
+    navigate('/checkout') 
   }
 
   return (

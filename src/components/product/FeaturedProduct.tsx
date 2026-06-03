@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useGetProductsQuery } from "@/services/api";
+import { Spinner } from "../ui/spinner";
 
 export const products = [
   {
@@ -12,7 +13,7 @@ export const products = [
     image: "/images/headphone.jfif",
   },
   {
-    title: "Smart Watch",
+    title: "Smart Watch", 
     price: 399.99,
     rating: 4.6,
     reviews: 189,
@@ -36,9 +37,18 @@ export const products = [
 
 const FeaturedProduct = () => {
   const navigate = useNavigate();
-  const {data, isLoading, error} = useGetProductsQuery()
+  const {data, isLoading} = useGetProductsQuery()
+   
+    if (isLoading) {
+      return (
+        <div className="flex items-center justify-center min-h-[300px]">
+          <Spinner className="w-10 h-10" />
+        </div>
+      );
+    } 
+
   return (
-    <div className="px-10 mt-10">
+    <div className="px-10 mt-10">    
         <div className="flex items-center justify-between mb-6">
           <div className="flex flex-col gap-2">
           <h2 className="text-xl font-semibold">Featured product</h2>
@@ -52,7 +62,7 @@ const FeaturedProduct = () => {
         {/* product card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {data?.products.map((item: any, index: number) => (
-            <ProductCard key={index} product={item}/>
+            <ProductCard key={index} product={item} variant="home"/>
           ))}
         </div>
     </div>

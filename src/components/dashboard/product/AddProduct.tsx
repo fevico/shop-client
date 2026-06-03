@@ -12,7 +12,7 @@ const productSchema = z.object({
   name: z.string().min(3, "Product name must be at least 3 characters long"),
   description: z.string().min(10, "Product description must be at least 10 characters long"),
   category: z.string().min(1, "Category is required"),
-  price: z.coerce.number().min(1, "Price must be a positive number"),
+  price: z.number().min(1, "Price must be a positive number"),
   images: z  
     .any()
     .refine((files) => files?.length > 0, {
@@ -25,7 +25,8 @@ type formFields = z.infer<typeof productSchema>
 const AddProduct = () => {
   const {reset, register, handleSubmit, formState: {errors}} = useForm<formFields>({
     resolver: zodResolver(productSchema)
-  })
+  }) 
+
   const {data, isLoading, error } = useGetCategoriesQuery();
   const [createProduct, { isLoading: loading }] = useCreateProductMutation()
 

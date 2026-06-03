@@ -97,7 +97,7 @@ export const apiSlice = createApi({
   providesTags: ["Orders", "Payments"],
   }),
 
-  getOrders: builder.query({
+  getOrders: builder.query<any, void>({
   query: () => "/payment/orders",
   providesTags: ["Payments"],
   }),

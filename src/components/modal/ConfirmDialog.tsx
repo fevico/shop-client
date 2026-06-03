@@ -9,11 +9,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Spinner } from "../ui/spinner";
 
 type ConfirmDialogProps = {
   trigger: React.ReactNode;
   title: string;
   description: string;
+  isLoading: boolean;
   onConfirm: () => void;
 };
 
@@ -21,6 +23,7 @@ const ConfirmDialog = ({
   trigger,
   title,
   description,
+  isLoading,
   onConfirm,
 }: ConfirmDialogProps) => {
   return (
@@ -45,8 +48,8 @@ const ConfirmDialog = ({
             Cancel
           </AlertDialogCancel>
 
-          <AlertDialogAction onClick={onConfirm}>
-            Continue
+          <AlertDialogAction onClick={onConfirm}> 
+            {isLoading ? <Spinner /> : "Confirm"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

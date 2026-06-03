@@ -22,10 +22,9 @@ const statusStyles = {
 };
 
 const OrderList = () => {
-  const {data, isLoading} = useGetOrdersQuery()
+  const {data, isLoading} = useGetOrdersQuery() 
   const [deleteOrder, {isLoading: isDeleting}] = useDeleteOrderMutation()
   const [updateOrderStatus, {isLoading: isEditing}] = useUpdateOrderStatusMutation()
-  console.log("orders", data)
   
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -141,6 +140,7 @@ const handleUpdateStatus = async (
             title="Delete Order"
             description="This action cannot be undone."
             onConfirm={() => handleDeleteOrder(order._id)}
+            isLoading={isDeleting}
             trigger={
     <span className="cursor-pointer text-red-500">
       <Trash2 size={20} />

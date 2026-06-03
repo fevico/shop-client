@@ -19,7 +19,7 @@ const statusStyles = {
   },
 };
 
-const OrderCard = ({data, isLoading, page, setpage}: any) => {
+const OrderCard = ({data, isLoading}: any) => {
 
 if (isLoading) {
   return (

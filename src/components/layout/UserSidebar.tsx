@@ -4,18 +4,12 @@ import {
   Package,
   Settings,
   User,
-  Heart,
-  MapPin,
-  CreditCard,
   LogOut,
 } from "lucide-react";
 
 const navItems = [
   { name: "Overview", path: "/dashboard", icon: User },
   { name: "Orders", path: "/orders", icon: Package },
-  // { name: "Wishlist", path: "/wishlist", icon: Heart },
-  // { name: "Addresses", path: "/addresses", icon: MapPin },
-  // { name: "Payment", path: "/payment", icon: CreditCard },
   { name: "Settings", path: "/settings", icon: Settings },
 ];
 
